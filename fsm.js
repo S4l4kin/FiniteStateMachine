@@ -692,14 +692,14 @@ function fixed(number, digits) {
 }
 
 var greekLetterNames = [ 'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega' ];
-
+var mathSymbols = {"bot":"⊥", "right":"⊢", "left":"⊣", "empty":"□"};
 function convertLatexShortcuts(text) {
-	// html greek characters
-	text = text.replaceAll("\\bot","⊥");
-	text = text.replaceAll("\\right", "⊢");
-	text = text.replaceAll("\\left","⊣");
-	text = text.replaceAll("\\empty","□");
+	// math symbols
+	for(key in mathSymbols){
+		text = text.replaceAll("\\"+key,mathSymbols[key]);
+	}
 	
+	// html greek characters
 	for(var i = 0; i < greekLetterNames.length; i++) {
 		var name = greekLetterNames[i];
 		text = text.replace(new RegExp('\\\\' + name, 'g'), String.fromCharCode(913 + i + (i > 16)));
